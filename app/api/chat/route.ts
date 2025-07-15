@@ -1,6 +1,7 @@
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
+import { createGroq } from '@ai-sdk/groq';
 import { streamText, smoothStream } from 'ai';
 import { headers } from 'next/headers';
 import { getModelConfig, AIModel } from '@/lib/models';
@@ -32,6 +33,11 @@ export async function POST(req: NextRequest) {
       case 'openrouter':
         const openrouter = createOpenRouter({ apiKey });
         aiModel = openrouter(modelConfig.modelId);
+        break;
+
+      case 'groq':
+        const groq = createGroq({ apiKey });
+        aiModel = groq(modelConfig.modelId);
         break;
 
       default:
@@ -70,7 +76,7 @@ export async function POST(req: NextRequest) {
     });
 
     return result.toDataStreamResponse({
-      sendReasoning: true,
+      sendReasoning: modelConfig.supportsReasoning ?? false,
       getErrorMessage: (error) => {
         return (error as { message: string }).message;
       },
