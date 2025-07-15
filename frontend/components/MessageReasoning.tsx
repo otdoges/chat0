@@ -26,7 +26,7 @@ function PureMessageReasoning({
             <ChevronDownIcon className="w-4 h-4" />
           </span>
         )}
-        <span>Reasoning</span>
+        <span>thinking</span>
       </button>
       {isExpanded && (
         <div className="p-4 rounded-md bg-secondary/10 text-xs border">
