@@ -23,6 +23,7 @@ const formSchema = z.object({
   }),
   openrouter: z.string().trim().optional(),
   openai: z.string().trim().optional(),
+  groq: z.string().trim().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -102,6 +103,16 @@ const Form = () => {
         placeholder="sk-..."
         register={register}
         error={errors.openai}
+      />
+
+      <ApiKeyField
+        id="groq"
+        label="Groq API Key"
+        models={['Llama 3.1 405B', 'Llama 3.1 70B', 'Llama 3.1 8B', 'Mixtral 8x7B']}
+        linkUrl="https://console.groq.com/keys"
+        placeholder="gsk_..."
+        register={register}
+        error={errors.groq}
       />
 
       <Button type="submit" className="w-full" disabled={!isDirty}>
