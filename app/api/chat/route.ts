@@ -11,7 +11,7 @@ export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, model } = await req.json();
+    const { messages, model, systemPrompt } = await req.json();
     const headersList = await headers();
 
     const modelConfig = getModelConfig(model as AIModel);
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
       onError: (error) => {
         console.log('error', error);
       },
-      system: `
+      system: systemPrompt || `
       You are Chat0, an ai assistant that can answer questions and help with tasks.
       Be helpful and provide relevant information
       Be respectful and polite in all interactions.

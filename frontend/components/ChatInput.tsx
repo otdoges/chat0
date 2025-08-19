@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router';
 import { createMessage, createThread } from '@/frontend/dexie/queries';
 import { useAPIKeyStore } from '@/frontend/stores/APIKeyStore';
 import { useModelStore } from '@/frontend/stores/ModelStore';
+import { useSystemPromptStore } from '@/frontend/stores/SystemPromptStore';
 import { AI_MODELS, AIModel, getModelConfig } from '@/lib/models';
 import KeyPrompt from '@/frontend/components/KeyPrompt';
 import { UIMessage } from 'ai';
@@ -187,6 +188,7 @@ const ChatInput = memo(PureChatInput, (prevProps, nextProps) => {
 const PureChatModelDropdown = () => {
   const getKey = useAPIKeyStore((state) => state.getKey);
   const { selectedModel, setModel } = useModelStore();
+  const { selectedPrompt, setPrompt } = useSystemPromptStore();
 
   const isModelEnabled = useCallback(
     (model: AIModel) => {
@@ -237,6 +239,55 @@ const PureChatModelDropdown = () => {
               </DropdownMenuItem>
             );
           })}
+        </DropdownMenuContent>
+      </DropdownMenu>
+      
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="flex items-center gap-1 h-8 pl-2 pr-2 text-xs rounded-md text-foreground hover:bg-primary/10 focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:ring-blue-500"
+            aria-label={`Selected prompt: ${selectedPrompt}`}
+          >
+            <div className="flex items-center gap-1">
+              {selectedPrompt === 'brutal' ? '🔥' : '💬'} {selectedPrompt}
+              <ChevronDown className="w-3 h-3 opacity-50" />
+            </div>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          className={cn('min-w-[8rem]', 'border-border', 'bg-popover')}
+        >
+          <DropdownMenuItem
+            onSelect={() => setPrompt('default')}
+            className={cn(
+              'flex items-center justify-between gap-2',
+              'cursor-pointer'
+            )}
+          >
+            <span>💬 default</span>
+            {selectedPrompt === 'default' && (
+              <Check
+                className="w-4 h-4 text-blue-500"
+                aria-label="Selected"
+              />
+            )}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => setPrompt('brutal')}
+            className={cn(
+              'flex items-center justify-between gap-2',
+              'cursor-pointer'
+            )}
+          >
+            <span>🔥 brutal</span>
+            {selectedPrompt === 'brutal' && (
+              <Check
+                className="w-4 h-4 text-blue-500"
+                aria-label="Selected"
+              />
+            )}
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

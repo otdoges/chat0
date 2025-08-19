@@ -21,6 +21,9 @@ export const AI_MODELS = [
   'Qwen 3 32B',
   'Compound Beta',
   'Compound Beta Mini',
+  'OpenAI GPT-OSS 20B',
+  'OpenAI GPT-OSS 120B',
+  'Llama Guard 4 12B',
 ] as const;
 
 export type AIModel = (typeof AI_MODELS)[number];
@@ -136,6 +139,21 @@ export const MODEL_CONFIGS = {
   },
   'Compound Beta Mini': {
     modelId: 'compound-beta-mini',
+    provider: 'groq',
+    headerKey: 'X-Groq-API-Key',
+  },
+  'OpenAI GPT-OSS 20B': {
+    modelId: 'openai-gpt-oss-20b',
+    provider: 'groq',
+    headerKey: 'X-Groq-API-Key',
+  },
+  'OpenAI GPT-OSS 120B': {
+    modelId: 'openai-gpt-oss-120b',
+    provider: 'groq',
+    headerKey: 'X-Groq-API-Key',
+  },
+  'Llama Guard 4 12B': {
+    modelId: 'meta-llama/llama-guard-4-12b',
     provider: 'groq',
     headerKey: 'X-Groq-API-Key',
   },

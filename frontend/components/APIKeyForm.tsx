@@ -108,7 +108,7 @@ const Form = () => {
       <ApiKeyField
         id="groq"
         label="Groq API Key"
-        models={['Llama 3.1 405B', 'Llama 3.1 70B', 'Llama 3.1 8B', 'Mixtral 8x7B']}
+        models={['Llama 3.1 405B', 'Llama 3.1 70B', 'Llama 3.1 8B', 'Llama 3.3 70B', 'Mixtral 8x7B', 'OpenAI GPT-OSS 120B', 'OpenAI GPT-OSS 20B']}
         linkUrl="https://console.groq.com/keys"
         placeholder="gsk_..."
         register={register}

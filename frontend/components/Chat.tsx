@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { createMessage } from '@/frontend/dexie/queries';
 import { useAPIKeyStore } from '@/frontend/stores/APIKeyStore';
 import { useModelStore } from '@/frontend/stores/ModelStore';
+import { useSystemPromptStore } from '@/frontend/stores/SystemPromptStore';
 import ThemeToggler from './ui/ThemeToggler';
 import { SidebarTrigger, useSidebar } from './ui/sidebar';
 import { Button } from './ui/button';
@@ -22,6 +23,7 @@ export default function Chat({ threadId, initialMessages }: ChatProps) {
   const { getKey } = useAPIKeyStore();
   const selectedModel = useModelStore((state) => state.selectedModel);
   const modelConfig = useModelStore((state) => state.getModelConfig());
+  const getPromptText = useSystemPromptStore((state) => state.getPromptText);
 
   const {
     isNavigatorVisible,
@@ -65,6 +67,7 @@ export default function Chat({ threadId, initialMessages }: ChatProps) {
     },
     body: {
       model: selectedModel,
+      systemPrompt: getPromptText(),
     },
   });
 
